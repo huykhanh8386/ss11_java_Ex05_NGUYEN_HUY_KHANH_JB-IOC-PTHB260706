@@ -1,0 +1,22 @@
+public class StandarAccount extends Account{
+    private static final double fee = 5000;
+
+    public StandarAccount(String accountNumber, double balance) {
+        super(accountNumber, balance);
+    }
+    @Override
+    public boolean transfer(Account target, double amount) {
+        double totalAmount = amount + fee;
+        if(amount <= 0){
+            System.out.println("Số tiền chuyển khoản phải lớn hơn 0!");
+            return false;
+        }
+        if (getBalance() >= totalAmount){
+            decreaseBalance(totalAmount);
+            target.deposit(amount);
+            return  true;
+        }
+        System.out.println("Tài khoản không đủ số dư!");
+        return false;
+    }
+}
