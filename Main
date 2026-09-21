@@ -1,0 +1,55 @@
+import java.util.Scanner;
+public class main {
+    static void main(String[] args) {
+        Scanner sc =new Scanner(System.in);
+        System.out.println("======NHẬP TÀI KHOẢN STANDARD======");
+        System.out.println("Nhập số tài khoản standard: ");
+        String standardNumber = sc.nextLine();
+        System.out.println("Nhập số dư tài khoản standard: ");
+        double standardBalance = Double.parseDouble(sc.nextLine());
+        StandarAccount standarAccount = new StandarAccount(standardNumber, standardBalance);
+        System.out.println("======NHẬP TÀI KHOẢN VIP======");
+        System.out.println("Nhập số tài khoản VIP: ");
+        String vipNumber = sc.nextLine();
+        System.out.println("Nhập số dư VIP: ");
+        double vipBalance = Double.parseDouble(sc.nextLine());
+        VIPAccount vipAccount = new VIPAccount(vipNumber,vipBalance);
+        System.out.println("======GIAO DỊCH 1: STANDARD-->VIP======");
+        System.out.println("Nhập số tiền cần chuyển: ");
+        double amount1 = Double.parseDouble(sc.nextLine());
+        boolean result1 = standarAccount.transfer(vipAccount,amount1);
+        System.out.printf("""
+                +-------------------------------------------------------+
+                |             NHẬT KÝ CHUYỂN KHOẢN RIKKEI BANK          |
+                +-------------------------------------------------------+
+                | [GD 1 - Standard] Chuyen %,.0f + Phi 5,000 => %-10s    |
+                | -> Số tài khoản %-8s: %,.0f VNĐ |
+                | -> Số dư %-8s: %,.0f VNĐ  |
+                |-------------------------------------------------------|
+                """,amount1,
+                result1 ? "OK" : "THẤT BẠI",
+                standarAccount.getAccountNumber(),
+                standarAccount.getBalance(),
+                vipAccount.getAccountNumber(),
+                vipAccount.getBalance());
+        System.out.println("======GIAO DỊCH 12: VIP-->STANDARD======");
+        System.out.println("Nhập số tiền cần chuyển: ");
+        double amount2 = Double.parseDouble(sc.nextLine());
+        boolean result2 = vipAccount.transfer(standarAccount, amount2);
+        System.out.printf("""
+                 +-------------------------------------------------------+
+                 |             NHẬT KÝ CHUYỂN KHOẢN RIKKEI BANK          |
+                 +-------------------------------------------------------|
+                 | [GD 2 - VIP]      Chuyen %,.0f (Mien phi) => %-10s   |
+                 | -> Số tài khoản %-8s: %,.0fVNĐ
+                 | -> Số dư %-8s : %,.0f VNĐ |
+                 +-------------------------------------------------------+
+                 """,
+                amount2,
+                result2 ? "OK" : "THẤT BẠI",
+                vipAccount.getAccountNumber(),
+                vipAccount.getBalance(),
+                standarAccount.getAccountNumber(),
+                standarAccount.getBalance());
+    }
+}
