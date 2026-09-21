@@ -1,0 +1,20 @@
+public class VIPAccount extends Account{
+    public VIPAccount(String accountNumber, double balance) {
+        super(accountNumber, balance);
+    }
+
+    @Override
+    public boolean transfer(Account target, double amount) {
+        if(amount <= 0){
+            System.out.println("Số tiền chuyển phải lớn hơn 0!");
+            return false;
+        }
+        if (getBalance() >= amount){
+            decreaseBalance(amount);
+            target.deposit(amount);
+            return true;
+        }
+        System.out.println("Tài khoản VIP không đủ số dư!");
+        return false;
+    }
+}
